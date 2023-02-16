@@ -24,7 +24,8 @@ class SlidingCard extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * 0.35,
+            height: MediaQuery.of(context).size.height * 0.40,
+            width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
               image: DecorationImage(
@@ -32,8 +33,22 @@ class SlidingCard extends StatelessWidget {
                 fit: BoxFit.cover
               )
             ),
+            child: Align(
+              alignment: Alignment.bottomRight,
+
+              child: IconButton(
+                icon: const Icon(
+                  Icons.favorite_border,
+                  size: 28,
+                ),
+                color: Colors.white,
+                onPressed: () {
+
+                },
+              ),
+            )
           ),
-          const SizedBox(height: 8,),
+          // const SizedBox(height: 8,),
           Expanded(
             child: CardContent(title: title, prise: prise, contents: contents,),
           )

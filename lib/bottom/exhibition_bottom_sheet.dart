@@ -1,8 +1,16 @@
 import 'dart:ui';
 import 'bottom_menu_button.dart';
+import 'bottom_sheet_header.dart';
 import 'package:flutter/material.dart';
 
-const double minHeight = 90;
+const double minHeight = 125;
+
+const double iconStartSize = 44;
+const double iconEndSize = 120;
+const double iconStartMarginTop = 36;
+const double iconEndMarginTop = 80;
+const double iconsVerticalSpacing = 24;
+const double iconsHorizontalSpacing = 16;
 
 class ExhibitionBottomSheet extends StatefulWidget {
   const ExhibitionBottomSheet({Key? key}) : super(key: key);
@@ -15,6 +23,14 @@ class _BottomSheetState extends State<ExhibitionBottomSheet> with SingleTickerPr
   AnimationController? _controller;
 
   double get maxHeight => MediaQuery.of(context).size.height;
+
+  double? get bottomHeaderTopMargin => lerp(20, 20 + MediaQuery.of(context).padding.top);
+  double? get bottomHeaderFontSize => lerp(14, 24);
+
+  double? get itemBorderRadius => lerp(8, 24);
+  double? get iconSize => lerp(iconStartSize, iconEndSize);
+
+  double? lerp(double min, double max) => lerpDouble(min, max, _controller!.value);
 
   @override
   void initState() {
@@ -33,11 +49,14 @@ class _BottomSheetState extends State<ExhibitionBottomSheet> with SingleTickerPr
     _controller?.dispose();
   }
 
-  double? lerp(double min, double max) => lerpDouble(min, max, _controller!.value);
+  double iconTopMargin(int index) => lerp(iconStartMarginTop, iconEndMarginTop + index * (iconsVerticalSpacing + iconEndSize))! + bottomHeaderTopMargin!;
+  double? iconLeftMargin(int index) => lerp(index * (iconsHorizontalSpacing + iconStartSize), 0);
+
 
   @override
   Widget build(BuildContext context) {
     const cBottomSheet = 0xFF162A49;
+    // double minHeight = MediaQuery.of(context).size.height * 0.15;
 
     return AnimatedBuilder(
       builder: (context, child) {
@@ -54,9 +73,14 @@ class _BottomSheetState extends State<ExhibitionBottomSheet> with SingleTickerPr
                   color: Color(cBottomSheet),
                   borderRadius: BorderRadius.vertical(top: Radius.circular(22))
               ),
-              child: const Stack(
+              child: Stack(
                 children: [
-                  BottomMenuButton(),
+                  const BottomMenuButton(),
+                  BottomSheetHeader(
+                    fontSize: bottomHeaderFontSize!,
+                    topMargin: bottomHeaderTopMargin!,
+                  ),
+                  for(Event event in events) _buildIcon(event),
                 ],
               ),
             ),
@@ -71,4 +95,39 @@ class _BottomSheetState extends State<ExhibitionBottomSheet> with SingleTickerPr
     final bool isOpen = _controller?.status == AnimationStatus.completed;
     _controller?.fling(velocity: isOpen ? -2 : 2); //<-- ...snap the sheet in proper direction
   }
+
+  Widget _buildIcon(Event event) {
+    int index = events.indexOf(event);
+
+    return Positioned(
+      height: iconSize,
+      width: iconSize,
+      top: iconTopMargin(index),
+      left: iconLeftMargin(index),
+      child: ClipRRect(
+        borderRadius: BorderRadius.horizontal(
+          left: Radius.circular(itemBorderRadius!),
+          right: Radius.circular(itemBorderRadius!),
+        ),
+        child: Image.asset(
+          'assets/${event.assetName}',
+          fit: BoxFit.cover,
+          alignment: Alignment(lerp(1, 0)!, 0),
+        ),
+      ),
+    );
+  }
+
+  final List<Event> events = [
+    Event('sample.jpg', 'Shenzhen GLOBAL DESIGN AWARD 2018', '4.20-30'),
+    Event('sample2.png', 'Shenzhen GLOBAL DESIGN AWARD 2018', '4.20-30'),
+  ];
+}
+
+class Event {
+  final String assetName;
+  final String title;
+  final String date;
+
+  Event(this.assetName, this.title, this.date);
 }

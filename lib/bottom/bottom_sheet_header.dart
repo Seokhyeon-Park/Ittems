@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class BottomSheetHaeder extends StatelessWidget {
+class BottomSheetHeader extends StatelessWidget {
   final double fontSize;
   final double topMargin;
 
-  const BottomSheetHaeder({
+  const BottomSheetHeader({
     Key? key,
     required this.fontSize,
     required this.topMargin,

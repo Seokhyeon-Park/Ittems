@@ -20,14 +20,14 @@ class SlidingCard extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 24),
       elevation: 8,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
       child: Column(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * 0.40,
+            height: MediaQuery.of(context).size.height * 0.45,
             width: double.infinity,
             decoration: BoxDecoration(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(22)),
               image: DecorationImage(
                 image: AssetImage('assets/$assetName'),
                 fit: BoxFit.cover

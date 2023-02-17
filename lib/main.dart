@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'body/body.dart';
 import './user/user_icon.dart';
+import './bottom/exhibition_bottom_sheet.dart';
 
 void main() {
   runApp(
@@ -48,7 +49,12 @@ class MyApp extends StatelessWidget {
           centerTitle: true,
           backgroundColor: const Color(cHeader),
         ),
-        body: const Body(),
+        body: const Stack(
+          children: [
+            Body(),
+            ExhibitionBottomSheet(),
+          ],
+        ),
         // bottomNavigationBar: BottomNavigationBar(
         //
         // ),

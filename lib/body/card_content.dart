@@ -17,9 +17,12 @@ class CardContent extends StatelessWidget {
   Widget build(BuildContext context) {
     const cContent = 0xffFFFBEB;
     return Container(
-      color: const Color(cContent),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.vertical(bottom: Radius.circular(22)),
+        color: Color(cContent),
+      ),
       child: Padding(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.fromLTRB(8, 8, 8, 2),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -30,7 +30,7 @@ class _BodyState extends State<Body> {
     return Column(
       children: [
         Container(
-          height: MediaQuery.of(context).size.height * 0.7,
+          height: MediaQuery.of(context).size.height * 0.795,
           color: const Color(cBody),
           child: PageView(
             controller: bodyPageController,
@@ -50,10 +50,10 @@ class _BodyState extends State<Body> {
             ],
           )
         ),
-        Container(
-          height: MediaQuery.of(context).size.height * 0.10,
-          color: const Color(cBody),
-        )
+        // Container(
+        //   height: MediaQuery.of(context).size.height * 0.10,
+        //   color: const Color(cBody),
+        // )
       ],
     );
   }

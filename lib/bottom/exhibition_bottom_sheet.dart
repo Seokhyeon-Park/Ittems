@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'bottom_menu_button.dart';
 import 'bottom_sheet_header.dart';
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 const double minHeight = 125;
 
@@ -67,6 +68,8 @@ class _BottomSheetState extends State<ExhibitionBottomSheet> with SingleTickerPr
           bottom: 0,
           child: GestureDetector(
             onTap: _toggle,
+            onVerticalDragUpdate: _handleDragUpdate,
+            onVerticalDragEnd: _handleDragEnd,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 22),
               decoration: const BoxDecoration(
@@ -93,7 +96,26 @@ class _BottomSheetState extends State<ExhibitionBottomSheet> with SingleTickerPr
 
   void _toggle() {
     final bool isOpen = _controller?.status == AnimationStatus.completed;
-    _controller?.fling(velocity: isOpen ? -2 : 2); //<-- ...snap the sheet in proper direction
+    _controller!.fling(velocity: isOpen ? -2 : 2); //<-- ...snap the sheet in proper direction
+  }
+
+  void _handleDragUpdate(DragUpdateDetails details) {
+    _controller!.value -= details.primaryDelta! / maxHeight; //<-- Update the _controller.value by the movement done by user.
+  }
+
+  void _handleDragEnd(DragEndDetails details) {
+    if (_controller!.isAnimating ||
+        _controller!.status == AnimationStatus.completed) return;
+
+    final double flingVelocity =
+        details.velocity.pixelsPerSecond.dy / maxHeight; //<-- calculate the velocity of the gesture
+
+    if (flingVelocity < 0.0)
+      _controller!.fling(velocity: math.max(2.0, -flingVelocity)); //<-- either continue it upwards
+    else if (flingVelocity > 0.0)
+      _controller!.fling(velocity: math.min(-2.0, -flingVelocity)); //<-- or continue it downwards
+    else
+      _controller!.fling(velocity: _controller!.value < 0.5 ? -2.0 : 2.0); //<-- or just continue to whichever edge is closer
   }
 
   Widget _buildIcon(Event event) {

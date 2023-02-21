@@ -110,12 +110,15 @@ class _BottomSheetState extends State<ExhibitionBottomSheet> with SingleTickerPr
     final double flingVelocity =
         details.velocity.pixelsPerSecond.dy / maxHeight; //<-- calculate the velocity of the gesture
 
-    if (flingVelocity < 0.0)
+    if (flingVelocity < 0.0){
       _controller!.fling(velocity: math.max(2.0, -flingVelocity)); //<-- either continue it upwards
-    else if (flingVelocity > 0.0)
+    } else if (flingVelocity > 0.0) {
       _controller!.fling(velocity: math.min(-2.0, -flingVelocity)); //<-- or continue it downwards
-    else
-      _controller!.fling(velocity: _controller!.value < 0.5 ? -2.0 : 2.0); //<-- or just continue to whichever edge is closer
+    } else {
+      _controller!.fling(velocity: _controller!.value < 0.5
+          ? -2.0
+          : 2.0); //<-- or just continue to whichever edge is closer
+    }
   }
 
   Widget _buildIcon(Event event) {

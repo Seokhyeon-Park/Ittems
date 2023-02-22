@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'body/body.dart';
 import './user/user_icon.dart';
 import './bottom/exhibition_bottom_sheet.dart';
+import './post/add_post.dart';
 
 void main() {
   runApp(
-    const MyApp()
+    const MaterialApp(
+        home: MyApp(),
+    ),
   );
 }
 
@@ -17,48 +20,49 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     const cHeader = 0xffF8CBA6;
 
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          leading: const UserIcon(
-              vMargin: 6,
-              vImage: 'DD.png',
-              vHeight: 46,
-              vWidth: 46,
+    return Scaffold(
+      appBar: AppBar(
+        leading: const UserIcon(
+          vMargin: 6,
+          vImage: 'DD.png',
+          vHeight: 46,
+          vWidth: 46,
+        ),
+        title: const Text(
+          'Ittems',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 22,
           ),
-          title: const Text(
-            'Ittems',
-            style: TextStyle(
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.add,
+              size: 38,
               color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 22,
             ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const AddPost()),
+              );
+            },
           ),
-          actions: [
-            IconButton(
-              icon: const Icon(
-                Icons.add,
-                size: 38,
-                color: Colors.black,
-              ),
-              onPressed: () {
-
-              },
-            ),
-          ],
-          centerTitle: true,
-          backgroundColor: const Color(cHeader),
-        ),
-        body: const Stack(
-          children: [
-            Body(),
-            ExhibitionBottomSheet(),
-          ],
-        ),
-        // bottomNavigationBar: BottomNavigationBar(
-        //
-        // ),
+        ],
+        centerTitle: true,
+        backgroundColor: const Color(cHeader),
       ),
+      body: const Stack(
+        children: [
+          Body(),
+          ExhibitionBottomSheet(),
+        ],
+      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //
+      // ),
     );
   }
 }

@@ -25,7 +25,7 @@ class _PostImgState extends State<PostImg> {
       height: widget.imgBoxSize,
       width: widget.imgBoxSize,
       margin: EdgeInsets.fromLTRB(
-          widget.iPaddingValue, widget.iPaddingValue + 2, widget.iPaddingValue, widget.iPaddingValue),
+          widget.iPaddingValue, widget.iPaddingValue + 14, widget.iPaddingValue, 0),
 
       child: GestureDetector(
         onTap: () async {
@@ -52,9 +52,12 @@ class _PostImgState extends State<PostImg> {
                   fontWeight: FontWeight.bold,
                   fontSize: 22,
                 ),
-              ) : Image.file(
-                pickedImage,
-                fit: BoxFit.fill,
+              ) : ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.file(
+                  pickedImage,
+                  fit: BoxFit.fill,
+                ),
               ),
           ),
         ),

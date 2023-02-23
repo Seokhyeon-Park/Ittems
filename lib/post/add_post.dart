@@ -11,7 +11,7 @@ class AddPost extends StatelessWidget {
   Widget build(BuildContext context) {
     const cHeader = 0xffF8CBA6;
     double iPaddingValue = 4;
-    double imgBoxSize = MediaQuery.of(context).size.width * 0.45;
+    double imgBoxSize = MediaQuery.of(context).size.width * 0.5;
     double inputSideSize =
         MediaQuery.of(context).size.width - imgBoxSize - (iPaddingValue * 2);
 
@@ -28,15 +28,23 @@ class AddPost extends StatelessWidget {
         ),
         centerTitle: true,
         backgroundColor: const Color(cHeader),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.check,
+              color: Colors.black,
+              size: 26,
+            ),
+            onPressed: () {
+
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [
-          Row(
-            children: [
-              PostImg(iPaddingValue: iPaddingValue, imgBoxSize: imgBoxSize),
-              PostInfoBox(inputSideSize: inputSideSize),
-            ],
-          ),
+          PostImg(iPaddingValue: iPaddingValue, imgBoxSize: imgBoxSize),
+          const PostInfoBox(),
           PostContent(iPaddingValue: iPaddingValue),
           const PostCategories(),
         ],

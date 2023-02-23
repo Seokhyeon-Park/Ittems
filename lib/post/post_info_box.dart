@@ -3,24 +3,25 @@ import 'package:flutter/material.dart';
 class PostInfoBox extends StatelessWidget {
   const PostInfoBox({
     Key? key,
-    required this.inputSideSize,
   }) : super(key: key);
 
-  final double inputSideSize;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: inputSideSize,
+    return Container(
+      margin: const EdgeInsets.all(12),
       child: const Column(
         children: [
           TextField(
             decoration: InputDecoration(
-                labelText: 'Your Ittems',
-                labelStyle: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                )
+              labelText: 'Your Ittems',
+              labelStyle: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xffF8CBA6))
+              ),
             ),
           ),
           TextField(
@@ -29,15 +30,21 @@ class PostInfoBox extends StatelessWidget {
               labelStyle: TextStyle(
                 color: Colors.black87,
               ),
+              focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xffF8CBA6))
+              ),
             ),
             keyboardType: TextInputType.number,
           ),
           TextField(
             decoration: InputDecoration(
-                labelText: 'link',
-                labelStyle: TextStyle(
-                  color: Colors.black87,
-                )
+              labelText: 'link',
+              labelStyle: TextStyle(
+                color: Colors.black87,
+              ),
+              focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xffF8CBA6))
+              ),
             ),
           ),
         ],

@@ -16,9 +16,9 @@ class PostInfoBox extends StatelessWidget {
         children: [
           TextField(
             decoration: InputDecoration(
-                labelText: 'Ittems',
+                labelText: 'Your Ittems',
                 labelStyle: TextStyle(
-                  color: Colors.orangeAccent,
+                  color: Colors.black,
                   fontWeight: FontWeight.bold,
                 )
             ),
